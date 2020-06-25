@@ -3,8 +3,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
+import { Feather } from '@expo/vector-icons';
+import HeaderOpts from './constants/HeaderOpts';
 
 const Stack = createStackNavigator();
+
+function LogoTitle() {
+  return (
+    <Feather name="navigation" size={24} color="black" style={{ width: 50, height: 50 }}/>
+  );
+}
 
 function HomeScreen({ navigation, route }) {
   return (
@@ -57,9 +65,25 @@ export default function App(props) {
   } else {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 42 }}/>
+        <Stack.Navigator /** screenOptions={({ route }) => ({...HeaderOpts.header(route)})}*/ >
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              // title: 'My Home',
+              // headerStyle: {
+              //   backgroundColor: '#f4511e',
+              // },
+              // headerTintColor: '#fff',
+              ////  ...HeaderOpts.header({name: 'Home'})
+              //// headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="Details"
+            component={DetailsScreen}
+            initialParams={{ itemId: 42 }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
