@@ -11,13 +11,13 @@ export default {
       </TouchableOpacity>,
       headerTitle: _ =>
         <View style={{width: (Dimensions.get('window').width) - 120}}>
-          <Text style={{color: '#fff'}}>{route.name}</Text>
+          <Text>{route.name}</Text>
         </View>,
       headerRight: _ => <View style={{marginRight: 4}}><TabBarIcon focused={false} name="bubbles" tag="SimpleLineIcons" size={40}/></View>,
-      headerStyle: {
-        backgroundColor: '#f4511e',
-      },
-      headerTintColor: '#fff'
+      // headerStyle: {
+      //   backgroundColor: '#f4511e',
+      // },
+      // headerTintColor: '#fff'
     }
     return opts;
   }
