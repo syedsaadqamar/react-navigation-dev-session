@@ -58,7 +58,7 @@ function DetailsScreen({ route, navigation }) {
   );
 }
 
-export default function App(props) {
+export default function App() {
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
@@ -66,7 +66,7 @@ export default function App(props) {
   } else {
     return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})} >
+        <Stack.Navigator /**screenOptions={({ route }) => ({...HeaderOpts.header(route)})}*/ >
           <Stack.Screen
             name="Home"
             component={HomeScreen}
