@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 function HomeScreen({ navigation, route }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Home Screen</Text>
       {route?.params?.itemId && <Text>Got data {route.params.itemId}</Text>}
       <Button
@@ -16,7 +16,7 @@ function HomeScreen({ navigation, route }) {
         onPress={() => {
           /* 1. Navigate to the Details route with params */
           navigation.navigate('Details', {
-            itemId: 86,
+            // itemId: 86,
             otherParam: 'anything you want here',
           });
         }}
@@ -30,26 +30,34 @@ function DetailsScreen({ route, navigation }) {
   const { itemId } = route.params;
   const { otherParam } = route.params;
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Details Screen</Text>
       <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() =>
-          navigation.push('Details', {
-            itemId: Math.floor(Math.random() * 100),
-          })
-        }
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button title="Go to previous screen with params" onPress={() => navigation.navigate('Home', { itemId })} />
+      <Text style={styles.buttonStyle}>otherParam: {JSON.stringify(otherParam)}</Text>
+      <View style={styles.buttonStyle}>
+        <Button
+          title="Go to Details... again"
+          onPress={() =>
+            navigation.push('Details', {
+              itemId: Math.floor(Math.random() * 100),
+            })
+          }
+        />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button title="Go back" onPress={() => navigation.goBack()} />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button title="Go to previous screen with params" onPress={() => navigation.navigate('Home', { itemId })} />
+      </View>
     </View>
   );
 }
 
-export default function App(props) {
+export default function App() {
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
@@ -72,6 +80,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  buttonStyle: {
+    marginBottom: 10
+  }
 });
 
 
