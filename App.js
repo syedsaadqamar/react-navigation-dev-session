@@ -47,7 +47,7 @@ function DetailsScreen({ navigation }) {
 }
 
 
-export default function App(props) {
+export default function App() {
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
