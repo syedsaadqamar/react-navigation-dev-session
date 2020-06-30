@@ -10,13 +10,13 @@ const Drawer = createDrawerNavigator();
 
  function SettingScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Setting Screen</Text>
     </View>
   );
 }
 
-export default function App(props) {
+export default function App() {
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
@@ -24,7 +24,7 @@ export default function App(props) {
   } else {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName={'Home'} headerMode={'none'} drawerContent={DrawerContent}>
+        <Drawer.Navigator initialRouteName={'Home'} drawerContent={DrawerContent}>
           <Drawer.Screen name="Home" component={HomeTabNavigator} />
           <Drawer.Screen name="Setting" component={SettingScreen} />
         </Drawer.Navigator>

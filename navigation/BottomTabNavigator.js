@@ -6,16 +6,18 @@ import LinksScreen from '../screens/LinksScreen';
 import PostScreen from './../screens/PostScreen';
 import NotificationScreen from './../screens/NotificationScreen';
 import HeaderOpts from './../constants/HeaderOpts';
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
 
 const HomeStack = createStackNavigator();
 const ResourceStack = createStackNavigator();
+const PostStack = createStackNavigator();
+const NotificationStack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
 function HomeScreen({ navigation, route }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Home Screen</Text>
       {route?.params?.itemId && <Text>Got data {route.params.itemId}</Text>}
       <Button
@@ -37,28 +39,36 @@ function DetailsScreen({ route, navigation }) {
   const { itemId } = route.params;
   const { otherParam } = route.params;
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Details Screen</Text>
       <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() =>
-          navigation.push('Details', {
-            itemId: Math.floor(Math.random() * 100),
-          })
-        }
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button title="Go to previous screen with params" onPress={() => navigation.navigate('Home', { itemId })} />
+      <Text style={styles.buttonStyle}>otherParam: {JSON.stringify(otherParam)}</Text>
+      <View style={styles.buttonStyle}>
+        <Button
+          title="Go to Details... again"
+          onPress={() =>
+            navigation.push('Details', {
+              itemId: Math.floor(Math.random() * 100),
+            })
+          }
+        />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button title="Go back" onPress={() => navigation.goBack()} />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button title="Go to previous screen with params" onPress={() => navigation.navigate('Home', { itemId })} />
+      </View>
     </View>
   );
 }
 
 function ResourceDetailsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Details Screen</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
@@ -67,7 +77,7 @@ function ResourceDetailsScreen({ navigation }) {
 
 function PostDetailsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Details Screen</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
@@ -76,7 +86,7 @@ function PostDetailsScreen({ navigation }) {
 
 function NotificationDetailsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Details Screen</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
@@ -85,7 +95,7 @@ function NotificationDetailsScreen({ navigation }) {
 
 export default function BottomTabNavigator() {
 
-  HomeStackScreen = () => {
+  const HomeStackScreen = () => {
     return (
       <HomeStack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})}>
         <HomeStack.Screen name="Home" component={HomeScreen}/>
@@ -94,7 +104,7 @@ export default function BottomTabNavigator() {
      );
   }
 
-  ResourceStackScreen = () => {
+  const ResourceStackScreen = () => {
     return (
       <ResourceStack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})}>
         <ResourceStack.Screen name="Links" component={LinksScreen}/>
@@ -103,21 +113,21 @@ export default function BottomTabNavigator() {
      );
   }
 
-  PostStackScreen = () => {
+  const PostStackScreen = () => {
     return (
-      <ResourceStack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})}>
-        <ResourceStack.Screen name="Post" component={PostScreen}/>
-        <ResourceStack.Screen name="PostDetails" component={PostDetailsScreen}/>
-      </ResourceStack.Navigator>
+      <PostStack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})}>
+        <PostStack.Screen name="Post" component={PostScreen}/>
+        <PostStack.Screen name="PostDetails" component={PostDetailsScreen}/>
+      </PostStack.Navigator>
      );
   }
 
-  NotificationStackScreen = () => {
+  const NotificationStackScreen = () => {
     return (
-      <ResourceStack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})}>
-        <ResourceStack.Screen name="Notification" component={NotificationScreen}/>
-        <ResourceStack.Screen name="NotificationDetails" component={NotificationDetailsScreen}/>
-      </ResourceStack.Navigator>
+      <NotificationStack.Navigator screenOptions={({ route }) => ({...HeaderOpts.header(route)})}>
+        <NotificationStack.Screen name="Notification" component={NotificationScreen}/>
+        <NotificationStack.Screen name="NotificationDetails" component={NotificationDetailsScreen}/>
+      </NotificationStack.Navigator>
      );
   }
 
@@ -158,3 +168,13 @@ export default function BottomTabNavigator() {
     </BottomTab.Navigator>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonStyle: {
+    marginBottom: 10
+  }
+});
